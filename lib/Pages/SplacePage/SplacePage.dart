@@ -6,6 +6,12 @@ class Splacepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            "Splace Page",
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      ),
       body: Column(
         children: [],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whispr/Config/Themes.dart';
 import 'package:whispr/Pages/SplacePage/SplacePage.dart';
+import 'package:whispr/Pages/Welcome/WelcomePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: Splacepage(),
+      home: WelcomePage(),
     );
   }
 }
