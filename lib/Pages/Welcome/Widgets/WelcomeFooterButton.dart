@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Config/Strings.dart';
@@ -10,7 +11,9 @@ class Welcomefooterbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SlideAction(
-      onSubmit: () {},
+      onSubmit: () {
+        Get.offAllNamed("/authPage");
+      },
       sliderButtonIcon: Container(
         height: 25,
         width: 25,

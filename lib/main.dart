@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:whispr/Config/PagePath.dart';
 import 'package:whispr/Config/Themes.dart';
-import 'package:whispr/Pages/SplacePage/SplacePage.dart';
 import 'package:whispr/Pages/Welcome/WelcomePage.dart';
 
 void main() {
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Whispr',
       theme: lightTheme,
+      getPages: pagePath,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
       home: WelcomePage(),
