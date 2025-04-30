@@ -49,20 +49,5 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBYqNopXC8T2idgxNtGFahCSw4LeagafM0',
-    appId: '1:1096301343543:android:a4358d0ed25c804f2be0b2',
-    messagingSenderId: '1096301343543',
-    projectId: 'whispr-8af87',
-    storageBucket: 'whispr-8af87.firebasestorage.app',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA6TXJxURnrZ-6Un8mjdnggThYiLCu0N84',
-    appId: '1:1096301343543:ios:801d0daa0a03be462be0b2',
-    messagingSenderId: '1096301343543',
-    projectId: 'whispr-8af87',
-    storageBucket: 'whispr-8af87.firebasestorage.app',
-    iosBundleId: 'com.example.whispr',
-  );
+  
 }
