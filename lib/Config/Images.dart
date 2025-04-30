@@ -10,4 +10,10 @@ class AssetsImage {
   // png images
   static const boyPic = "$imagesPath/boy_pic.png";
   static const girlPic = "$imagesPath/girl_pic.png";
+
+  static const chatStatusSvg = "$iconsPath/chat_status.svg";
+  static const chatSendSvg = "$iconsPath/send.svg";
+  static const chatGallerySvg = "$iconsPath/gallery.svg";
+  static const chatMicSvg = "$iconsPath/mic.svg";
+
 }
