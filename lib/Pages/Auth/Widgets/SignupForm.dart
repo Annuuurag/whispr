@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:get/get.dart';
 import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
 
 class Signupform extends StatelessWidget {
@@ -6,7 +7,7 @@ class Signupform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         SizedBox(height: 50),
         TextField(
@@ -36,7 +37,11 @@ class Signupform extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Primarybutton(btnName: "SIGNUP", icon: Icons.lock_open_outlined),
+            Primarybutton(
+              ontap: (){},
+              btnName: "SIGNUP", 
+              icon: Icons.lock_open_outlined,
+            ),
           ],
         ),
       ],
