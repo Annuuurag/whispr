@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatTile.dart';
 //import 'package:whispr/Config/Images.dart';
@@ -10,11 +11,16 @@ class ChatList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ChatTile(
-          imageUrl: AssetsImage.boyPic,
-          name: "Ayushman Bordoloi",
-          lastChat: "Messages are shown here",
-          lastTime: "08:55 PM",
+        InkWell(
+          onTap: (){
+            Get.toNamed("/chatPage");
+          },
+          child: ChatTile(
+            imageUrl: AssetsImage.boyPic,
+            name: "Ayushman Bordoloi",
+            lastChat: "Messages are shown here",
+            lastTime: "08:55 PM",
+          ),
         ),
         ChatTile(
           imageUrl: AssetsImage.girlPic,

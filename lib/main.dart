@@ -3,7 +3,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:whispr/Config/PagePath.dart';
 import 'package:whispr/Config/Themes.dart';
 import 'package:whispr/Pages/HomePage/HomePage.dart';
-import 'package:whispr/Pages/Welcome/WelcomePage.dart';
 
 void main() {
   runApp(const MyApp());
