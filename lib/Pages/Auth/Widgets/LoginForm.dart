@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
 
 class Loginform extends StatelessWidget {
@@ -6,7 +7,7 @@ class Loginform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         SizedBox(height: 50),
         TextField(
@@ -28,7 +29,12 @@ class Loginform extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Primarybutton(btnName: "LOGIN", icon: Icons.lock_open_outlined),
+            Primarybutton(
+              ontap: (){
+                Get.offAllNamed("/homePage");
+              },
+              btnName: "LOGIN", 
+              icon: Icons.lock_open_outlined),
           ],
         ),
       ],

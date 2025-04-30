@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:whispr/Config/PagePath.dart';
 import 'package:whispr/Config/Themes.dart';
+import 'package:whispr/Pages/HomePage/HomePage.dart';
 import 'package:whispr/Pages/Welcome/WelcomePage.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       getPages: pagePath,
       darkTheme: darkTheme,
       themeMode: ThemeMode.dark,
-      home: WelcomePage(),
+      home: HomePage(),
     );
   }
 }

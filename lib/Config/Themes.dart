@@ -9,6 +9,10 @@ var darkTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     fillColor: dBackgroundColor,
     filled: true,
+    border: UnderlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(10),
+    )
   ),
 
   colorScheme: const ColorScheme.dark(
@@ -37,7 +41,7 @@ var darkTheme = ThemeData(
 
     headlineSmall: TextStyle(
       fontSize: 20,
-      color: dBackgroundColor,
+      color: dOnBackgroundColor,
       fontFamily: "Poppins",
       fontWeight: FontWeight.w600,
     ),
