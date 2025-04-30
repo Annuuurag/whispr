@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:whispr/Controller/AuthController.dart';
 import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
 
 class Loginform extends StatelessWidget {
@@ -7,36 +8,47 @@ class Loginform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+    Authcontroller authcontroller = Get.put(Authcontroller());
+
     return Column(
       children: [
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         TextField(
-          decoration: InputDecoration(
+          controller: email,
+          decoration: const InputDecoration(
             hintText: "Email",
             prefixIcon: Icon(Icons.alternate_email_rounded),
           ),
         ),
 
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextField(
-          decoration: InputDecoration(
+          controller: password,
+          decoration: const InputDecoration(
             hintText: "Password",
             prefixIcon: Icon(Icons.password_outlined),
           ),
         ),
 
-        SizedBox(height: 60),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Primarybutton(
-              ontap: (){
-                Get.offAllNamed("/homePage");
-              },
-              btnName: "LOGIN", 
-              icon: Icons.lock_open_outlined),
-          ],
-        ),
+        const SizedBox(height: 60),
+        Obx(() =>
+        authcontroller.isLoading.value ? const CircularProgressIndicator()
+        : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Primarybutton(
+                  ontap: () {
+                    authcontroller.login(email.text, password.text);
+                    //Get.offAllNamed("/homePage");
+                  },
+                  btnName: "LOGIN",
+                  icon: Icons.lock_open_outlined,
+                ),
+              ],
+            ),
+        )
       ],
     );
   }

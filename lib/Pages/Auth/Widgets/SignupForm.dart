@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:whispr/Controller/AuthController.dart';
 //import 'package:get/get.dart';
 import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
 
@@ -7,42 +9,55 @@ class Signupform extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Authcontroller authcontroller = Get.put(Authcontroller());
+
+    TextEditingController name = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Column(
       children: [
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         TextField(
-          decoration: InputDecoration(
+          controller: name,
+          decoration: const InputDecoration(
             hintText: "Full Name",
             prefixIcon: Icon(Icons.person_rounded),
           ),
         ),
 
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextField(
-          decoration: InputDecoration(
+          controller: email,
+          decoration: const InputDecoration(
             hintText: "Email",
             prefixIcon: Icon(Icons.alternate_email_rounded),
           ),
         ),
 
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextField(
-          decoration: InputDecoration(
+          controller: password,
+          decoration: const InputDecoration(
             hintText: "Password",
             prefixIcon: Icon(Icons.password_outlined),
           ),
         ),
 
-        SizedBox(height: 60),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Primarybutton(
-              ontap: (){},
-              btnName: "SIGNUP", 
-              icon: Icons.lock_open_outlined,
+        const SizedBox(height: 60),
+        Obx(() =>
+        authcontroller.isLoading.value ? const CircularProgressIndicator()
+        : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Primarybutton(
+                  ontap: () {
+                    authcontroller.createUser(email.text, password.text);
+                  },
+                  btnName: "SIGNUP",
+                  icon: Icons.lock_open_outlined,
+                ),
+              ],
             ),
-          ],
         ),
       ],
     );
