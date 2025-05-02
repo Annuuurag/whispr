@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whispr/Controller/AuthController.dart';
 //import 'package:get/get.dart';
-import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
+import 'package:whispr/Pages/Widgets/PrimaryButton.dart';
 
 class Signupform extends StatelessWidget {
   const Signupform({super.key});
@@ -44,20 +44,26 @@ class Signupform extends StatelessWidget {
         ),
 
         const SizedBox(height: 60),
-        Obx(() =>
-        authcontroller.isLoading.value ? const CircularProgressIndicator()
-        : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Primarybutton(
-                  ontap: () {
-                    authcontroller.createUser(email.text, password.text);
-                  },
-                  btnName: "SIGNUP",
-                  icon: Icons.lock_open_outlined,
-                ),
-              ],
-            ),
+        Obx(
+          () =>
+              authcontroller.isLoading.value
+                  ? const CircularProgressIndicator()
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Primarybutton(
+                        ontap: () {
+                          authcontroller.createUser(
+                            email.text,
+                            password.text,
+                            name.text,
+                          );
+                        },
+                        btnName: "SIGNUP",
+                        icon: Icons.lock_open_outlined,
+                      ),
+                    ],
+                  ),
         ),
       ],
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whispr/Controller/AuthController.dart';
-import 'package:whispr/Pages/Welcome/Widgets/PrimaryButton.dart';
+import 'package:whispr/Pages/Widgets/PrimaryButton.dart';
 
 class Loginform extends StatelessWidget {
   const Loginform({super.key});

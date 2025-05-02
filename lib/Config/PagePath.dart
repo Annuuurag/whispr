@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 import 'package:whispr/Pages/Auth/AuthPage.dart';
 import 'package:whispr/Pages/ChatPage/ChatPage.dart';
 import 'package:whispr/Pages/HomePage/HomePage.dart';
-import 'package:whispr/Pages/Profile/ProfilePage.dart';
+import 'package:whispr/Pages/UserProfilePage/ProfilePage.dart';
+import 'package:whispr/Pages/UserProfilePage/UpdateProfile.dart';
 
 var pagePath = [
   GetPage(
@@ -23,9 +24,16 @@ var pagePath = [
     transition: Transition.rightToLeft,
   ),
 
-  GetPage(
+  /*GetPage(
     name: "/profilePage",
-    page: () => Profilepage(),
+    page: () => UserProfilePage(),
     transition: Transition.rightToLeft,
   ),
+  GetPage(
+    name: "/updateProfilePage",
+
+    page: () => UserUpdateProfile(),
+
+    transition: Transition.rightToLeft,
+  ),*/
 ];

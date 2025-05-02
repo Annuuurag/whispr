@@ -39,6 +39,9 @@ dependencies:
   get: ^4.7.2 #for state management and routing
   firebase_core: ^3.13.0 #for firebase
   firebase_auth: ^5.5.3 #for firebase auth
+  cloud_firestore: ^5.6.7 #for cloud firestore
+  image_picker: ^1.1.2 #for image picker
+  firebase_storage: ^12.4.5 #for firebase storage
 
 dev_dependencies:
   flutter_test: 
