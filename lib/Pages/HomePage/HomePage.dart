@@ -22,7 +22,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     Profilecontroller profilecontroller = Get.put(Profilecontroller());
-    Imagepickercontroller imagePickerController = Get.put(Imagepickercontroller());
+    Imagepickercontroller imagePickerController = Get.put(
+      Imagepickercontroller(),
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -35,12 +37,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: SvgPicture.asset(AssetsImage.appIconSVG),
         ),
         actions: [
-          IconButton(onPressed: () {
-            imagePickerController.pickImage();
-          }, icon: Icon(Icons.search)),
           IconButton(
             onPressed: () {
+              imagePickerController.pickImage();
+            },
+            icon: Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () async {
               //Get.toNamed("/profilePage");
+              await profilecontroller.getUserDetails();
               Get.to(Profilepage());
             },
             icon: Icon(Icons.more_vert),

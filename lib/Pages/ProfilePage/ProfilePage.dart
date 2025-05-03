@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:whispr/Controller/AuthController.dart';
 import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Pages/Widgets/PrimaryButton.dart';
@@ -29,8 +30,21 @@ class Profilepage extends StatelessWidget {
       Imagepickercontroller(),
     );
     RxString imagePath = "".obs;
+
+    Authcontroller authcontroller = Get.put(Authcontroller());
+
     return Scaffold(
-      appBar: AppBar(title: Text("Profile")),
+      appBar: AppBar(
+        title: Text("Profile"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authcontroller.logoutUser();
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
@@ -103,7 +117,16 @@ class Profilepage extends StatelessWidget {
                                           ),
                                         ),
                                         child:
-                                            profilecontroller.currentUser.value.profileImage == ""
+                                            profilecontroller
+                                                            .currentUser
+                                                            .value
+                                                            .profileImage ==
+                                                        "" ||
+                                                    profilecontroller
+                                                            .currentUser
+                                                            .value
+                                                            .profileImage ==
+                                                        null
                                                 ? Icon(Icons.image)
                                                 : ClipRRect(
                                                   borderRadius:
@@ -115,7 +138,8 @@ class Profilepage extends StatelessWidget {
                                                         .currentUser
                                                         .value
                                                         .profileImage!,
-                                                    fit: BoxFit.cover,),
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                       ),
                             ),
@@ -179,7 +203,7 @@ class Profilepage extends StatelessWidget {
                                       ? Primarybutton(
                                         btnName: "Save",
                                         icon: Icons.save,
-                                        ontap: () async{
+                                        ontap: () async {
                                           await profilecontroller.updateProfile(
                                             imagePath.value,
                                             name.text,
