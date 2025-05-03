@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Config/Strings.dart';
+import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatList.dart';
 import 'package:whispr/Pages/HomePage/Widget/TabBar.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
     Profilecontroller profilecontroller = Get.put(Profilecontroller());
+    Imagepickercontroller imagePickerController = Get.put(Imagepickercontroller());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -33,7 +35,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: SvgPicture.asset(AssetsImage.appIconSVG),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {
+            imagePickerController.pickImage();
+          }, icon: Icon(Icons.search)),
           IconButton(
             onPressed: () {
               //Get.toNamed("/profilePage");
