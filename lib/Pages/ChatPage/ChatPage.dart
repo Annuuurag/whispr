@@ -7,6 +7,7 @@ import 'package:whispr/Controller/ChatController.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Model/UserModel.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/ChatBubble.dart';
+import 'package:whispr/Pages/UserProfilePage/ProfilePage.dart';
 
 class ChatPage extends StatelessWidget {
   final UserModel userModel;
@@ -19,19 +20,37 @@ class ChatPage extends StatelessWidget {
     Profilecontroller profileController = Get.put(Profilecontroller());
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Image.asset(AssetsImage.boyPic),
+        leading: InkWell(
+          onTap: () async {
+            Get.to(UserProfilePage(
+              userModel: userModel,
+            ));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Image.asset(AssetsImage.boyPic),
+          ),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              userModel.name ?? "User",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            Text("Online", style: Theme.of(context).textTheme.labelMedium),
-          ],
+        title: InkWell(
+          onTap: () async {
+            Get.to(UserProfilePage(
+              userModel: userModel,
+            ));
+          },
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userModel.name ?? "User",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text("Online", style: Theme.of(context).textTheme.labelMedium),
+                ],
+              ),
+            ],
+          ),
         ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
@@ -77,7 +96,7 @@ class ChatPage extends StatelessWidget {
                 if (messageController.text.isNotEmpty) {
                   chatController.sendMessage(
                     userModel.id!,
-                    messageController.text,
+                    messageController.text, userModel
                   );
                   messageController.clear();
                 }

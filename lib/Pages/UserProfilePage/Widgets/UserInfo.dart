@@ -7,7 +7,15 @@ import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 
 class LoginUserInfo extends StatelessWidget {
-  const LoginUserInfo({super.key});
+  final String profileImage;
+  final String userName;
+  final String userEmail;
+  const LoginUserInfo({
+    super.key,
+    required this.profileImage,
+    required this.userName,
+    required this.userEmail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +37,16 @@ class LoginUserInfo extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-
-                  children: [Image.asset(AssetsImage.boyPic)],
+                  children: [
+                    Container(
+                      width: 150,
+                      height: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(profileImage, fit: BoxFit.cover),
+                      ),
+                    ),
+                  ],
                 ),
 
                 SizedBox(height: 20),
@@ -39,12 +55,9 @@ class LoginUserInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
 
                   children: [
-                    Obx(
-                      () => Text(
-                        profilecontroller.currentUser.value.name! ?? "User",
-
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
+                    Text(
+                      userName,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
@@ -53,12 +66,9 @@ class LoginUserInfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
 
                   children: [
-                    Obx(
-                      () => Text(
-                        profilecontroller.currentUser.value.email!,
-
-                        style: Theme.of(context).textTheme.labelLarge,
-                      ),
+                    Text(
+                      userEmail,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ],
                 ),
@@ -75,7 +85,7 @@ class LoginUserInfo extends StatelessWidget {
                       padding: EdgeInsets.all(15),
 
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
 
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -115,7 +125,7 @@ class LoginUserInfo extends StatelessWidget {
                       padding: EdgeInsets.all(15),
 
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
 
                         borderRadius: BorderRadius.circular(15),
                       ),

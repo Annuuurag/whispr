@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Model/ChatModel.dart';
+import 'package:whispr/Model/ChatRoomModel.dart';
+import 'package:whispr/Model/UserModel.dart';
 
 class Chatcontroller extends GetxController {
   final auth = FirebaseAuth.instance;
@@ -21,7 +23,7 @@ class Chatcontroller extends GetxController {
     }
   }
 
-  Future<void> sendMessage(String targetUserId, String message) async {
+  Future<void> sendMessage(String targetUserId, String message, UserModel targetUser) async {
     isloading.value = true;
     String chatId = uuid.v6();
     String roomId = getRoomId(targetUserId);
@@ -33,9 +35,23 @@ class Chatcontroller extends GetxController {
       senderName: controller.currentUser.value.name,
       timestamp: DateTime.now().toString(),
     );
-
+    
+    var roomDetails = ChatRoomModel(
+      id: roomId,
+      lastMessage: message,
+      lastMessageTimeStamp: DateTime.now().toString(),
+      sender: controller.currentUser.value,
+      receiver: targetUser, 
+      timestamp: DateTime.now().toString(),
+      unReadMessNo: 0,
+    );
     try {
       await db
+          .collection("chats")
+          .doc(roomId)
+          .set(roomDetails.toJson());
+
+        await db
           .collection("chats")
           .doc(roomId)
           .collection("messages")

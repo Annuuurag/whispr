@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Controller/ChatController.dart';
 import 'package:whispr/Controller/ContactController.dart';
+import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Pages/ChatPage/ChatPage.dart';
 import 'package:whispr/Pages/ContactPage/Widgets/ContactSearch.dart';
 import 'package:whispr/Pages/ContactPage/Widgets/NewContactTile.dart';
@@ -18,6 +19,7 @@ class Contactpage extends StatelessWidget {
     RxBool isSearchEnable = false.obs;
     Contactcontroller contactController = Get.put(Contactcontroller());
     Chatcontroller chatController = Get.put(Chatcontroller());
+    Profilecontroller profileController = Get.put(Profilecontroller());
     return Scaffold(
       appBar: AppBar(
         title: Text("Select Contact"),
@@ -68,7 +70,11 @@ class Contactpage extends StatelessWidget {
                                   AssetsImage.DefaultProfileUrl,
                               name: e.name ?? "User",
                               lastChat: e.about ?? "Messages are shown here",
-                              lastTime: "",
+                              lastTime:
+                                  e.email ==
+                                          profileController.currentUser.value.email
+                                      ? "You"
+                                      : "",
                             ),
                           ),
                         )
