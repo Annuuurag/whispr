@@ -121,12 +121,12 @@ class Profilepage extends StatelessWidget {
                                                             .currentUser
                                                             .value
                                                             .profileImage ==
-                                                        "" ||
+                                                        null ||
                                                     profilecontroller
                                                             .currentUser
                                                             .value
                                                             .profileImage ==
-                                                        null
+                                                        ""
                                                 ? Icon(Icons.image)
                                                 : ClipRRect(
                                                   borderRadius:

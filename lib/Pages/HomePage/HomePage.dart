@@ -56,7 +56,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed("/contactPage");
+        },
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(Icons.add, color: Theme.of(context).colorScheme.onSurface),
       ),

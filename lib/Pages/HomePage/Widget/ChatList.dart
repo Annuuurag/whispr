@@ -12,42 +12,42 @@ class ChatList extends StatelessWidget {
     return ListView(
       children: [
         InkWell(
-          onTap: (){
+          onTap: () {
             Get.toNamed("/chatPage");
           },
           child: ChatTile(
-            imageUrl: AssetsImage.boyPic,
+            imageUrl: AssetsImage.DefaultProfileUrl,
             name: "Ayushman Bordoloi",
             lastChat: "Messages are shown here",
             lastTime: "08:55 PM",
           ),
         ),
         ChatTile(
-          imageUrl: AssetsImage.girlPic,
+          imageUrl: AssetsImage.DefaultProfileUrl,
           name: "Anurag Rajbonshi",
           lastChat: "Messages are shown here",
           lastTime: "09:23 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.DefaultProfileUrl,
           name: "Ayushman Bordoloi",
           lastChat: "Messages are shown here",
           lastTime: "08:55 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.girlPic,
+          imageUrl: AssetsImage.DefaultProfileUrl,
           name: "Anurag Rajbonshi",
           lastChat: "Messages are shown here",
           lastTime: "09:23 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.boyPic,
+          imageUrl: AssetsImage.DefaultProfileUrl,
           name: "Ayushman Bordoloi",
           lastChat: "Messages are shown here",
           lastTime: "08:55 PM",
         ),
         ChatTile(
-          imageUrl: AssetsImage.girlPic,
+          imageUrl: AssetsImage.DefaultProfileUrl,
           name: "Anurag Rajbonshi",
           lastChat: "Messages are shown here",
           lastTime: "09:23 PM",

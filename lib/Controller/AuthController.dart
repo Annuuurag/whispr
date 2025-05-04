@@ -33,7 +33,7 @@ class Authcontroller extends GetxController {
         email: email,
         password: password,
       );
-      await initUser(email, name);
+      await initUser(email, name, auth.currentUser!.uid);
       print("account created");
       Get.offAllNamed("/homePage");
     } on FirebaseAuthException catch (e) {
@@ -53,8 +53,8 @@ class Authcontroller extends GetxController {
     Get.offAllNamed("/authPage");
   }
 
-  Future<void> initUser(String email, String name) async {
-    var newUser = UserModel(email: email, name: name);
+  Future<void> initUser(String email, String name, String id) async {
+    var newUser = UserModel(email: email, name: name, id: id);
     try {
       await db
           .collection("users")
