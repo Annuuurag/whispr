@@ -40,9 +40,13 @@ class Contactcontroller extends GetxController {
 
   Future<void> getChatRoomList() async {
     List<ChatRoomModel> tempChatRoom = [];
-    await db.collection('chats').get().then((value) {
+    await db
+      .collection('chats')
+      .orderBy("timestamp", descending: true)
+      .get()
+      .then((value) {
       tempChatRoom =
-          value.docs.map((e) => ChatRoomModel.fromJson(e.data())).toList();
+          value.docs.map((e) => ChatRoomModel.fromJson(e.data()),).toList();
     });
     chatRoomList.value = tempChatRoom
             .where((e) => e.id!.contains(auth.currentUser!.uid))

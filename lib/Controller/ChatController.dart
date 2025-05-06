@@ -24,6 +24,26 @@ class Chatcontroller extends GetxController {
     }
   }
 
+  UserModel getSender(UserModel currentUser, UserModel targetUser) {
+    String currentUserId = currentUser.id!;
+    String targetUserId = targetUser.id!;
+    if (currentUserId[0].codeUnitAt(0) > targetUserId[0].codeUnitAt(0)) {
+      return currentUser;
+    } else {
+      return targetUser;
+    }
+  }
+
+  UserModel getReciever(UserModel currentUser, UserModel targetUser) {
+    String currentUserId = currentUser.id!;
+    String targetUserId = targetUser.id!;
+    if (currentUserId[0].codeUnitAt(0) > targetUserId[0].codeUnitAt(0)) {
+      return targetUser;
+    } else {
+      return currentUser;
+    }
+  }
+
   Future<void> sendMessage(
     String targetUserId,
     String message,
@@ -34,6 +54,10 @@ class Chatcontroller extends GetxController {
     String roomId = getRoomId(targetUserId);
     DateTime timestamp = DateTime.now();
     String nowTime = DateFormat('hh:mm a').format(timestamp);
+
+    UserModel sender = getSender(controller.currentUser.value, targetUser);
+    UserModel receiver = getReciever(controller.currentUser.value, targetUser);
+
     var newChat = ChatModel(
       id: chatId,
       message: message,
@@ -47,20 +71,23 @@ class Chatcontroller extends GetxController {
       id: roomId,
       lastMessage: message,
       lastMessageTimeStamp: nowTime,
-      sender: controller.currentUser.value,
-      receiver: targetUser,
+      sender: sender,
+      receiver: receiver,
       timestamp: DateTime.now().toString(),
       unReadMessNo: 0,
     );
     try {
-      await db.collection("chats").doc(roomId).set(roomDetails.toJson());
-
       await db
           .collection("chats")
           .doc(roomId)
           .collection("messages")
           .doc(chatId)
           .set(newChat.toJson());
+
+      await db
+          .collection("chats")
+          .doc(roomId)
+          .set(roomDetails.toJson());
     } catch (e) {
       // TODO
       print(e);
