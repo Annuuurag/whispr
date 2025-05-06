@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Config/Strings.dart';
+import 'package:whispr/Controller/ContactController.dart';
 import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatList.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     Imagepickercontroller imagePickerController = Get.put(
       Imagepickercontroller(),
     );
+    Contactcontroller contactController = Get.put(Contactcontroller());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         actions: [
           IconButton(
             onPressed: () {
-              imagePickerController.pickImage();
+              contactController.getChatRoomList();
             },
             icon: Icon(Icons.search),
           ),

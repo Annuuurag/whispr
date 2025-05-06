@@ -39,7 +39,7 @@ class UserUpdateProfile extends StatelessWidget {
                           ),
 
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
 
                             borderRadius: BorderRadius.circular(100),
                           ),

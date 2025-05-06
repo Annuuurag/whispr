@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whispr/Controller/AuthController.dart';
@@ -133,12 +135,19 @@ class Profilepage extends StatelessWidget {
                                                       BorderRadius.circular(
                                                         100,
                                                       ),
-                                                  child: Image.network(
-                                                    profilecontroller
-                                                        .currentUser
-                                                        .value
-                                                        .profileImage!,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        profilecontroller
+                                                            .currentUser
+                                                            .value
+                                                            .profileImage!,
                                                     fit: BoxFit.cover,
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            CircularProgressIndicator(),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
                                                   ),
                                                 ),
                                       ),
