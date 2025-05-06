@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:whispr/Controller/ChatController.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Model/UserModel.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/ChatBubble.dart';
+import 'package:whispr/Pages/ChatPage/Widgets/TypeMessage.dart';
 import 'package:whispr/Pages/UserProfilePage/ProfilePage.dart';
 
 class ChatPage extends StatelessWidget {
@@ -21,21 +23,32 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () async {
-            Get.to(UserProfilePage(
-              userModel: userModel,
-            ));
+            Get.to(UserProfilePage(userModel: userModel));
           },
           child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Image.asset(AssetsImage.boyPic),
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      userModel.profileImage ?? AssetsImage.DefaultProfileUrl,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
           ),
         ),
         title: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onTap: () async {
-            Get.to(UserProfilePage(
-              userModel: userModel,
-            ));
+            Get.to(UserProfilePage(userModel: userModel));
           },
           child: Row(
             children: [
@@ -46,7 +59,10 @@ class ChatPage extends StatelessWidget {
                     userModel.name ?? "User",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  Text("Online", style: Theme.of(context).textTheme.labelMedium),
+                  Text(
+                    "Online",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
                 ],
               ),
             ],
@@ -60,55 +76,8 @@ class ChatPage extends StatelessWidget {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 30,
-              height: 30,
-              child: SvgPicture.asset(AssetsImage.chatMicSvg, width: 25),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: TextField(
-                controller: messageController,
-                decoration: const InputDecoration(
-                  filled: false,
-                  hintText: "Type your message...",
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Container(
-              width: 30,
-              height: 30,
-              child: SvgPicture.asset(AssetsImage.chatGallerySvg, width: 25),
-            ),
-            SizedBox(width: 10),
-            InkWell(
-              onTap: () {
-                if (messageController.text.isNotEmpty) {
-                  chatController.sendMessage(
-                    userModel.id!,
-                    messageController.text, userModel
-                  );
-                  messageController.clear();
-                }
-              },
-              child: Container(
-                width: 30,
-                height: 30,
-                child: SvgPicture.asset(AssetsImage.chatSendSvg, width: 25),
-              ),
-            ),
-          ],
-        ),
+      floatingActionButton: TypeMessage(
+        userModel: userModel,
       ),
 
       body: Padding(
@@ -143,7 +112,8 @@ class ChatPage extends StatelessWidget {
                   return ChatBubble(
                     message: snapshot.data![index].message!,
                     imageUrl: snapshot.data![index].imageUrl ?? "",
-                    isComming:snapshot.data![index].receiverId ==
+                    isComming:
+                        snapshot.data![index].receiverId ==
                         profileController.currentUser.value.id,
                     status: "read",
                     time: formattedTime,

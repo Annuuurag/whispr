@@ -61,6 +61,8 @@ class Contactpage extends StatelessWidget {
                     contactController.userList
                         .map(
                           (e) => InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () {
                               Get.to(ChatPage(userModel: e));
                             },
