@@ -7,6 +7,7 @@ import 'package:whispr/Config/Strings.dart';
 import 'package:whispr/Controller/ContactController.dart';
 import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Controller/ProfileController.dart';
+import 'package:whispr/Pages/Groups/GroupsPage.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatList.dart';
 import 'package:whispr/Pages/HomePage/Widget/TabBar.dart';
 import 'package:whispr/Pages/ProfilePage/ProfilePage.dart';
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: [
             ChatList(),
 
-            ListView(children: [ListTile(title: Text("Name Nitish"))]),
+            GroupPage(),
 
             ListView(children: [ListTile(title: Text("Name Nitish"))]),
           ],

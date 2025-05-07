@@ -9,6 +9,7 @@ import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Pages/ChatPage/ChatPage.dart';
 import 'package:whispr/Pages/ContactPage/Widgets/ContactSearch.dart';
 import 'package:whispr/Pages/ContactPage/Widgets/NewContactTile.dart';
+import 'package:whispr/Pages/Groups/NewGroup/NewGroup.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatTile.dart';
 
 class Contactpage extends StatelessWidget {
@@ -50,7 +51,9 @@ class Contactpage extends StatelessWidget {
             Newcontacttile(
               btnName: "New Group",
               icon: Icons.group_add,
-              ontap: () {},
+              ontap: () {
+                Get.to(NewGroup());
+              },
             ),
             SizedBox(height: 10),
             Row(children: [Text("Contacts on Whispr")]),
