@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Controller/ChatController.dart';
+import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Model/UserModel.dart';
+import 'package:whispr/Pages/ChatPage/Widgets/ImagePickerBottonSheet.dart';
 
 class TypeMessage extends StatelessWidget {
   final UserModel userModel;
@@ -15,6 +19,9 @@ class TypeMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     Chatcontroller chatController = Get.put(Chatcontroller());
     TextEditingController messageController = TextEditingController();
+    Imagepickercontroller imagePickerController = Get.put(
+      Imagepickercontroller(),
+    );
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -47,28 +54,39 @@ class TypeMessage extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          Container(
-            width: 30,
-            height: 30,
-            child: SvgPicture.asset(AssetsImage.chatGallerySvg, width: 25),
+          Obx(
+            () =>
+                chatController.selectedImagePath.value == ""
+                    ? InkWell(
+                      onTap: () {
+                        ImagePickerBottomSheet(
+                          context,
+                          chatController,
+                          imagePickerController,
+                        );
+                      },
+                      child: Container(
+                        width: 30,
+                        height: 30,
+                        child: SvgPicture.asset(
+                          AssetsImage.chatGallerySvg,
+                          width: 25,
+                        ),
+                      ),
+                    )
+                    : SizedBox(),
           ),
           SizedBox(width: 10),
           Obx(
             () =>
-                message.value == ""
-                    ? Container(
-                      width: 30,
-                      height: 30,
-                      child: SvgPicture.asset(
-                        AssetsImage.chatMicSvg,
-                        width: 25,
-                      ),
-                    )
-                    : InkWell(
+                message.value != "" ||
+                        chatController.selectedImagePath.value != ""
+                    ? InkWell(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        if (messageController.text.isNotEmpty) {
+                        if (messageController.text.isNotEmpty ||
+                            chatController.selectedImagePath.value.isNotEmpty) {
                           chatController.sendMessage(
                             userModel.id!,
                             messageController.text,
@@ -81,10 +99,21 @@ class TypeMessage extends StatelessWidget {
                       child: Container(
                         width: 30,
                         height: 30,
-                        child: SvgPicture.asset(
-                          AssetsImage.chatSendSvg,
-                          width: 25,
-                        ),
+                        child:
+                            chatController.isloading.value
+                                ? CircularProgressIndicator()
+                                : SvgPicture.asset(
+                                  AssetsImage.chatSendSvg,
+                                  width: 25,
+                                ),
+                      ),
+                    )
+                    : Container(
+                      width: 30,
+                      height: 30,
+                      child: SvgPicture.asset(
+                        AssetsImage.chatMicSvg,
+                        width: 25,
                       ),
                     ),
           ),
