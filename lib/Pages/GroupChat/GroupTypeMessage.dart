@@ -6,22 +6,26 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:whispr/Config/Images.dart';
 import 'package:whispr/Controller/ChatController.dart';
+import 'package:whispr/Controller/GroupController.dart';
 import 'package:whispr/Controller/ImagePicker.dart';
+import 'package:whispr/Model/GropupModel.dart';
 import 'package:whispr/Model/UserModel.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/ImagePickerBottonSheet.dart';
 
-class TypeMessage extends StatelessWidget {
-  final UserModel userModel;
-  TypeMessage({super.key, required this.userModel});
+class GroupTypeMessage extends StatelessWidget {
+  final GroupModel groupModel;
+  GroupTypeMessage({super.key, required this.groupModel});
   RxString message = "".obs;
 
   @override
   Widget build(BuildContext context) {
-    Chatcontroller chatController = Get.put(Chatcontroller());
+    //Chatcontroller chatController = Get.put(Chatcontroller());
+    GroupController groupController = Get.put(GroupController());
     TextEditingController messageController = TextEditingController();
     Imagepickercontroller imagePickerController = Get.put(
       Imagepickercontroller(),
     );
+    //RxString imagePath = "".obs;
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -56,12 +60,12 @@ class TypeMessage extends StatelessWidget {
           SizedBox(width: 10),
           Obx(
             () =>
-                chatController.selectedImagePath.value == ""
+                groupController.selectedImagePath.value == ""
                     ? InkWell(
                       onTap: () {
                         ImagePickerBottomSheet(
                           context,
-                          chatController.selectedImagePath,
+                          groupController.selectedImagePath,
                           imagePickerController,
                         );
                       },
@@ -80,27 +84,24 @@ class TypeMessage extends StatelessWidget {
           Obx(
             () =>
                 message.value != "" ||
-                        chatController.selectedImagePath.value != ""
+                        groupController.selectedImagePath.value != ""
                     ? InkWell(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        if (messageController.text.isNotEmpty ||
-                            chatController.selectedImagePath.value.isNotEmpty) {
-                          chatController.sendMessage(
-                            userModel.id!,
-                            messageController.text,
-                            userModel,
-                          );
-                          messageController.clear();
-                          message.value = "";
-                        }
+                        groupController.sendGroupMessage(
+                          messageController.text,
+                          groupModel.id!,
+                          "",
+                        );
+                        messageController.clear();
+                        message.value = "";
                       },
                       child: Container(
                         width: 30,
                         height: 30,
                         child:
-                            chatController.isloading.value
+                            groupController.isloading.value
                                 ? CircularProgressIndicator()
                                 : SvgPicture.asset(
                                   AssetsImage.chatSendSvg,

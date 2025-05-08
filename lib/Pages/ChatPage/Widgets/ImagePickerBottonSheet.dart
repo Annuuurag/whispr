@@ -6,7 +6,7 @@ import 'package:whispr/Controller/ImagePicker.dart';
 
 Future<dynamic> ImagePickerBottomSheet(
   BuildContext context,
-  Chatcontroller chatController,
+  RxString imagePath,
   Imagepickercontroller imagePickerController,
 ) {
   return Get.bottomSheet(
@@ -25,7 +25,7 @@ Future<dynamic> ImagePickerBottomSheet(
         children: [
           InkWell(
             onTap: () async {
-              chatController.selectedImagePath.value =
+              imagePath.value =
                   await imagePickerController.pickImage(ImageSource.camera);
               Get.back();
             },
@@ -41,7 +41,7 @@ Future<dynamic> ImagePickerBottomSheet(
           ),
           InkWell(
             onTap: () async {
-              chatController.selectedImagePath.value =
+              imagePath.value =
                   await imagePickerController.pickImage(ImageSource.gallery);
               Get.back();
             },

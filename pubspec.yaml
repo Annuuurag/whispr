@@ -45,6 +45,7 @@ dependencies:
   uuid: ^4.5.1 #for unique id
   intl: ^0.20.2 #for date format
   cached_network_image: ^3.4.1 #for image caching
+  fluttertoast: ^8.2.12 #for toast
 
 dev_dependencies:
   flutter_test:
