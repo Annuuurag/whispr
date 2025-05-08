@@ -61,9 +61,18 @@ class ChatPage extends StatelessWidget {
                     userModel.name ?? "User",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  Text(
-                    "Online",
-                    style: Theme.of(context).textTheme.labelMedium,
+                  StreamBuilder(
+                    stream: chatController.getStatus(userModel.id!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text("..........");
+                      } else {
+                        return Text(
+                          snapshot.data!.status ?? "",
+                          style: TextStyle(fontSize: 12),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -173,8 +182,7 @@ class ChatPage extends StatelessWidget {
               ),
             ),
             TypeMessage(userModel: userModel),
-            
-          ],  
+          ],
         ),
       ),
     );
