@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.20.2 #for date format
   cached_network_image: ^3.4.1 #for image caching
   fluttertoast: ^8.2.12 #for toast
+  zego_uikit_prebuilt_call: ^4.16.28 #for audio & video call
+  zego_uikit_signaling_plugin: ^2.8.12 #for audio & video call
 
 dev_dependencies:
   flutter_test:

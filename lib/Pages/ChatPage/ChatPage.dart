@@ -6,9 +6,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:whispr/Config/Images.dart';
+import 'package:whispr/Controller/CallController.dart';
 import 'package:whispr/Controller/ChatController.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Model/UserModel.dart';
+import 'package:whispr/Pages/CallPage/AudioCallPage.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/ChatBubble.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/TypeMessage.dart';
 import 'package:whispr/Pages/UserProfilePage/ProfilePage.dart';
@@ -22,6 +24,7 @@ class ChatPage extends StatelessWidget {
     Chatcontroller chatController = Get.put(Chatcontroller());
     TextEditingController messageController = TextEditingController();
     Profilecontroller profileController = Get.put(Profilecontroller());
+    Callcontroller callController = Get.put(Callcontroller());
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -80,7 +83,16 @@ class ChatPage extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
+          IconButton(
+            onPressed: () {
+              Get.to(Audiocallpage(target: userModel));
+              callController.callAction(
+                userModel,
+                profileController.currentUser.value,
+              );
+            },
+            icon: Icon(Icons.phone),
+          ),
 
           IconButton(onPressed: () {}, icon: Icon(Icons.video_call)),
         ],

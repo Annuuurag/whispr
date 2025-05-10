@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:whispr/Config/PagePath.dart';
 import 'package:whispr/Config/Themes.dart';
+import 'package:whispr/Controller/CallController.dart';
 import 'package:whispr/Pages/Auth/AuthPage.dart';
 import 'package:whispr/Pages/HomePage/HomePage.dart';
 import 'package:whispr/Pages/SplacePage/SplacePage.dart';
@@ -13,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
+
   runApp(const MyApp());
 }
 
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Callcontroller callController = Get.put(Callcontroller());
     return GetMaterialApp(
       builder: FToastBuilder(),
       title: 'Whispr',
