@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'package:whispr/Model/AudioCall.dart';
 import 'package:whispr/Model/UserModel.dart';
 import 'package:whispr/Pages/CallPage/AudioCallPage.dart';
+import 'package:whispr/Pages/CallPage/VideoCall.dart';
 
 class Callcontroller extends GetxController {
   final db = FirebaseFirestore.instance;
@@ -15,45 +16,89 @@ class Callcontroller extends GetxController {
   void onInit() {
     super.onInit();
 
-    getCallsNotification().listen((List<AudioCallModel> callList) {
+    getCallsNotification().listen((List<CallModel> callList) {
       if (callList.isNotEmpty) {
         var callData = callList[0];
-        Get.snackbar(
-          duration: Duration(days: 1),
-          barBlur: 0,
-          backgroundColor: Colors.grey.shade900,
-          isDismissible: false,
-          icon: Icon(Icons.call),
-          onTap: (snack) {
-            Get.back();
-            Get.to(
-              Audiocallpage(
-                target: UserModel(
-                  id: callData.callerUid,
-                  name: callData.callerName,
-                  email: callData.callerEmail,
-                  profileImage: callData.callerPic,
-                ),
-              ),
-            );
-          },
-          callData.callerName!,
-          "Incoming Call",
-          mainButton: TextButton(
-            onPressed: () {
-              endCall(callData);
-              Get.back();
-            },
-            child: Text("End Call"),
-          ),
-        );
+        if (callData.type == "audio") {
+          audioCallNotification(callData);
+        } else if (callData.type == "video") {
+          videoCallNotification(callData);
+        }
       }
     });
   }
 
-  Future<void> callAction(UserModel receiver, UserModel caller) async {
+  Future<void> audioCallNotification(CallModel callData) async {
+    Get.snackbar(
+      duration: Duration(days: 1),
+      barBlur: 0,
+      backgroundColor: Colors.grey.shade900,
+      isDismissible: false,
+      icon: Icon(Icons.call),
+      onTap: (snack) {
+        Get.back();
+        Get.to(
+          Audiocallpage(
+            target: UserModel(
+              id: callData.callerUid,
+              name: callData.callerName,
+              email: callData.callerEmail,
+              profileImage: callData.callerPic,
+            ),
+          ),
+        );
+      },
+      callData.callerName!,
+      "Incoming Audio Call",
+      mainButton: TextButton(
+        onPressed: () {
+          endCall(callData);
+          Get.back();
+        },
+        child: Text("End Call"),
+      ),
+    );
+  }
+
+  Future<void> videoCallNotification(CallModel callData) async {
+    Get.snackbar(
+      duration: Duration(days: 1),
+      barBlur: 0,
+      backgroundColor: Colors.grey.shade900,
+      isDismissible: false,
+      icon: Icon(Icons.video_call),
+      onTap: (snack) {
+        Get.back();
+        Get.to(
+          Videocallpage(
+            target: UserModel(
+              id: callData.callerUid,
+              name: callData.callerName,
+              email: callData.callerEmail,
+              profileImage: callData.callerPic,
+            ),
+          ),
+        );
+      },
+      callData.callerName!,
+      "Incoming Video Call",
+      mainButton: TextButton(
+        onPressed: () {
+          endCall(callData);
+          Get.back();
+        },
+        child: Text("End Call"),
+      ),
+    );
+  }
+
+  Future<void> callAction(
+    UserModel receiver,
+    UserModel caller,
+    String type,
+  ) async {
     String id = uuid;
-    var newCall = AudioCallModel(
+    var newCall = CallModel(
       id: id,
       callerName: caller.name,
       callerPic: caller.profileImage,
@@ -64,6 +109,7 @@ class Callcontroller extends GetxController {
       receiverUid: receiver.id,
       receiverEmail: receiver.email,
       status: "dialing",
+      type: type,
     );
     try {
       await db
@@ -94,7 +140,7 @@ class Callcontroller extends GetxController {
     }
   }
 
-  Stream<List<AudioCallModel>> getCallsNotification() {
+  Stream<List<CallModel>> getCallsNotification() {
     return FirebaseFirestore.instance
         .collection("notification")
         .doc(auth.currentUser!.uid)
@@ -103,12 +149,12 @@ class Callcontroller extends GetxController {
         .map(
           (snapshot) =>
               snapshot.docs
-                  .map((doc) => AudioCallModel.fromJson(doc.data()))
+                  .map((doc) => CallModel.fromJson(doc.data()))
                   .toList(),
         );
   }
 
-  Future<void> endCall(AudioCallModel call) async {
+  Future<void> endCall(CallModel call) async {
     try {
       await db
           .collection("notification")

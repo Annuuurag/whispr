@@ -11,6 +11,7 @@ import 'package:whispr/Controller/ChatController.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Model/UserModel.dart';
 import 'package:whispr/Pages/CallPage/AudioCallPage.dart';
+import 'package:whispr/Pages/CallPage/VideoCall.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/ChatBubble.dart';
 import 'package:whispr/Pages/ChatPage/Widgets/TypeMessage.dart';
 import 'package:whispr/Pages/UserProfilePage/ProfilePage.dart';
@@ -89,12 +90,20 @@ class ChatPage extends StatelessWidget {
               callController.callAction(
                 userModel,
                 profileController.currentUser.value,
+                "audio",
               );
             },
             icon: Icon(Icons.phone),
           ),
 
-          IconButton(onPressed: () {}, icon: Icon(Icons.video_call)),
+          IconButton(onPressed: () {
+            Get.to(Videocallpage(target: userModel));
+              callController.callAction(
+                userModel,
+                profileController.currentUser.value,
+                "video",
+              );
+          }, icon: Icon(Icons.video_call)),
         ],
       ),
       body: Padding(
