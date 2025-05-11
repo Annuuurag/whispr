@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whispr/Model/AudioCall.dart';
 import 'package:whispr/Model/UserModel.dart';
@@ -98,6 +99,8 @@ class Callcontroller extends GetxController {
     String type,
   ) async {
     String id = uuid;
+    DateTime timestamp = DateTime.now();
+    String nowTime = DateFormat('hh:mm a').format(timestamp);
     var newCall = CallModel(
       id: id,
       callerName: caller.name,
@@ -110,6 +113,8 @@ class Callcontroller extends GetxController {
       receiverEmail: receiver.email,
       status: "dialing",
       type: type,
+      time: nowTime,
+      timestamp: DateTime.now().toString(),
     );
     try {
       await db

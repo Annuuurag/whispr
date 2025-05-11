@@ -8,6 +8,7 @@ import 'package:whispr/Controller/ContactController.dart';
 import 'package:whispr/Controller/ImagePicker.dart';
 import 'package:whispr/Controller/ProfileController.dart';
 import 'package:whispr/Controller/StatusController.dart';
+import 'package:whispr/Pages/CallHistory/CallHistory.dart';
 import 'package:whispr/Pages/Groups/GroupsPage.dart';
 import 'package:whispr/Pages/HomePage/Widget/ChatList.dart';
 import 'package:whispr/Pages/HomePage/Widget/TabBar.dart';
@@ -74,10 +75,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           controller: tabController,
           children: [
             ChatList(),
-
             GroupPage(),
-
-            ListView(children: [ListTile(title: Text("Name Nitish"))]),
+            Callhistory(),
           ],
         ),
       ),

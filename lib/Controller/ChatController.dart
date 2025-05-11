@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whispr/Controller/ContactController.dart';
 import 'package:whispr/Controller/ProfileController.dart';
+import 'package:whispr/Model/AudioCall.dart';
 import 'package:whispr/Model/ChatModel.dart';
 import 'package:whispr/Model/ChatRoomModel.dart';
 import 'package:whispr/Model/UserModel.dart';
@@ -132,5 +133,20 @@ class Chatcontroller extends GetxController {
     return db.collection('users').doc(uid).snapshots().map((event) {
       return UserModel.fromJson(event.data()!);
     });
+  }
+
+  Stream<List<CallModel>> getCalls() {
+    return db
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("calls")
+        .orderBy("timestamp", descending: true)
+        .snapshots()
+        .map(
+          (snapshot) =>
+              snapshot.docs
+                  .map((doc) => CallModel.fromJson(doc.data()))
+                  .toList(),
+        );
   }
 }
